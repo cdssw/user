@@ -71,6 +71,7 @@ public class UserDto {
 	@Getter
 	@Setter
 	@Builder
+	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Res {
 		private String username;
