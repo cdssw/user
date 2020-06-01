@@ -17,7 +17,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class MeetBusinessException extends RuntimeException {
+public class UserBusinessException extends RuntimeException {
 
 	/**
 	 * 
