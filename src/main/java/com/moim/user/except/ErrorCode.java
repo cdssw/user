@@ -22,6 +22,7 @@ public enum ErrorCode {
 
 	INPUT_VALUE_INVALID("V_00001", "입력값이 올바르지 않습니다."),
 	USER_NOT_FOUND("U_00001", "사용자가 존재하지 않습니다."),
+	USER_INVALID("U_00002", "본인이 아닙니다."),
 	ELEMENT_NOT_FOUND("E_00001", "항목이 존재하지 않습니다."),
 	;
 	

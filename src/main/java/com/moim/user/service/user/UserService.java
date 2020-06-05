@@ -15,6 +15,7 @@ package com.moim.user.service.user;
  */
 public interface UserService {
 
-	Long signUpUser(UserDto.SignUpReq dto);
-	UserDto.Res getUser(long userId);
+	long signUpUser(UserDto.SignUpReq dto);
+	UserDto.Res getUser(final String username);
+	UserDto.Res editUser(final String username, UserDto.UserReq dto);
 }

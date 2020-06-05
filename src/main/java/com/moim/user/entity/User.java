@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.moim.user.service.user.UserDto;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,5 +63,17 @@ public class User extends BaseTimeEntity {
 		this.userNm = userNm;
 		this.address = address;
 		this.phone = phone;
+	}
+	
+	// 사용자 정보 변경
+	public void editUser(UserDto.UserReq dto) {
+		this.address = dto.getAddress() == null ? address : dto.getAddress();
+		this.phone = dto.getPhone() == null ? phone : dto.getPhone();
+	}
+	
+	// 비밀번호 변경
+	public void changePassword(String password) {
+		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		this.password = passwordEncoder.encode(password);
 	}
 }

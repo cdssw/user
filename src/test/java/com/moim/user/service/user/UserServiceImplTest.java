@@ -5,8 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-
-import java.util.Optional;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,10 +14,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 
-import com.moim.user.component.CommonComponent;
 import com.moim.user.entity.Address;
 import com.moim.user.entity.User;
-import com.moim.user.except.NotFoundException;
+import com.moim.user.event.Sender;
 import com.moim.user.repository.UserRepository;
 
 /**
@@ -43,18 +41,20 @@ public class UserServiceImplTest {
 	@Mock
 	private UserRepository userRepository;
 	
+	@Mock
+	private Sender sender;
+	
 	private UserDto.SignUpReq dto = null;
 
 	@Before
 	public void setUp() {
-		CommonComponent commonComponent = new CommonComponent();
 		ModelMapper modelMapper = new ModelMapper();
-		userServiceImpl = new UserServiceImpl(commonComponent, modelMapper, userRepository);
+		userServiceImpl = new UserServiceImpl(modelMapper, userRepository, sender);
 		dto = UserDto.SignUpReq.builder()
 				.username("cdssw@naver.com")
 				.password("1234")
 				.userNm("Andrew")
-				.address(Address.builder().address("Seoul").addressDetail("Kang-nam").build())
+				.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
 				.phone("010-1111-1111")
 				.build();
 	}
@@ -76,21 +76,29 @@ public class UserServiceImplTest {
 	@Test
 	public void testGetUser() {
 		// given
-		given(userRepository.findById(any())).willReturn(Optional.of(dto.toEntity()));
+		given(userRepository.findByUsername(any())).willReturn(dto.toEntity());
 		
 		// when
-		UserDto.Res res = userServiceImpl.getUser(1L);
+		UserDto.Res res = userServiceImpl.getUser("cdssw@naver.com");
 		
 		// then
 		assertThat(res.getUserNm()).isEqualTo(dto.getUserNm());
 	}
-	
-	@Test(expected = NotFoundException.class)
-	public void testUserNotFound() {
+
+	@Test
+	public void testEditUser() {
 		// given
-		given(userRepository.findById(any())).willReturn(Optional.empty());
+		given(userRepository.findByUsername(any())).willReturn(dto.toEntity());
+		UserDto.UserReq req = UserDto.UserReq.builder()
+				.address(Address.builder().address1("Yong-in").address2("Cheoin-gu").build())
+				.phone("010-9999-9999")
+				.build();
 		
 		// when
-		userServiceImpl.getUser(1);		
+		UserDto.Res res = userServiceImpl.editUser("cdssw@naver.com", req);
+		
+		// then
+		verify(sender).send(any(), any());
+		assertEquals(res.getPhone(), req.getPhone());
 	}
 }

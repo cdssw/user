@@ -26,14 +26,14 @@ import lombok.NoArgsConstructor;
 public class Address {
 
 	@NotBlank
-	private String address;
+	private String address1;
 	
 	@NotBlank
-	private String addressDetail;
+	private String address2;
 	
 	@Builder
-	public Address(String address, String addressDetail) {
-		this.address = address;
-		this.addressDetail = addressDetail;
+	public Address(String address1, String address2) {
+		this.address1 = address1;
+		this.address2 = address2;
 	}
 }

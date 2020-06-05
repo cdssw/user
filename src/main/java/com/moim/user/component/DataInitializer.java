@@ -41,7 +41,7 @@ public class DataInitializer implements ApplicationRunner {
 					.password(passwordEncoder.encode("1234"))
 					.userType(0)
 					.userNm("Andrew")
-					.address(Address.builder().address("Seoul").addressDetail("Kang-nam").build())
+					.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
 					.phone("010-1111-1111")
 					.build();
 			userRepository.save(user);
@@ -53,7 +53,7 @@ public class DataInitializer implements ApplicationRunner {
 					.password(passwordEncoder.encode("1234"))
 					.userType(0)
 					.userNm("Monica")
-					.address(Address.builder().address("Seoul").addressDetail("Song-pa").build())
+					.address(Address.builder().address1("Seoul").address2("Song-pa").build())
 					.phone("010-2222-2222")
 					.build();
 			userRepository.save(user);
@@ -65,7 +65,7 @@ public class DataInitializer implements ApplicationRunner {
 					.password(passwordEncoder.encode("1234"))
 					.userType(0)
 					.userNm("Michael")
-					.address(Address.builder().address("Seoul").addressDetail("Seo-cho").build())
+					.address(Address.builder().address1("Seoul").address2("Seo-cho").build())
 					.phone("010-3333-3333")
 					.build();
 			userRepository.save(user);

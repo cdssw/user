@@ -1,6 +1,7 @@
 package com.moim.user.service.user;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.moim.user.entity.Address;
@@ -32,6 +33,7 @@ public class UserDto {
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class SignUpReq {
 		
+		@Email
 		@NotBlank
 		private String username;
 		
@@ -65,6 +67,23 @@ public class UserDto {
 					.address(address)
 					.phone(phone)
 					.build();
+		}
+	}
+	
+	@Getter
+	@NoArgsConstructor(access = AccessLevel.PROTECTED)
+	public static class UserReq {
+		
+		@Valid
+		private Address address;
+		
+		@NotBlank
+		private String phone;
+		
+		@Builder
+		public UserReq(Address address, String phone) {
+			this.address = address; // address 수정되도 kafka로 전송은 안됨, 필요한 정보만 전송
+			this.phone = phone;
 		}
 	}
 	

@@ -1,11 +1,13 @@
 package com.moim.user.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -36,15 +38,24 @@ public class UserController {
 
 	private UserService userService;
 	
-	@PostMapping
+	@GetMapping
+	@ResponseStatus(value = HttpStatus.OK)
+	public UserDto.Res getUser(HttpServletRequest req) {
+		String username = req.getHeader("username"); // gateway에서 보내준 username header를 추출
+		return userService.getUser(username);
+	}
+	
+	@PostMapping("/signup")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public long signUpUser(@RequestBody @Valid UserDto.SignUpReq dto) {
 		return userService.signUpUser(dto);
 	}
 	
-	@GetMapping("/{id}")
+	@PreAuthorize("#oauth2.hasScope('write')") // write scope로 제한
+	@PutMapping
 	@ResponseStatus(value = HttpStatus.OK)
-	public UserDto.Res getUser(@PathVariable final long id) {
-		return userService.getUser(id);
+	public UserDto.Res editUser(@RequestBody @Valid final UserDto.UserReq dto, HttpServletRequest req) {
+		String username = req.getHeader("username"); // gateway에서 보내준 username header를 추출
+		return userService.editUser(username, dto);
 	}
 }

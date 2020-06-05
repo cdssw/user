@@ -2,10 +2,10 @@ package com.moim.user.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -44,6 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 @WebMvcTest // controller 관련 bean만 로딩
 @Slf4j
+@ActiveProfiles("test")
 public class UserControllerTest extends BaseControllerTest {
 
 	private MockMvc mvc;
@@ -54,7 +56,8 @@ public class UserControllerTest extends BaseControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	private UserDto.SignUpReq dto;
+	private UserDto.SignUpReq signUpDto;
+	private UserDto.UserReq userDto;
 	private UserDto.Res res1;
 	
 	@Before
@@ -64,17 +67,23 @@ public class UserControllerTest extends BaseControllerTest {
 				.alwaysDo(print()) // 항상 결과 print
 				.build();
 		
-		dto = UserDto.SignUpReq.builder()
+		signUpDto = UserDto.SignUpReq.builder()
 				.username("cdssw@naver.com")
 				.password("1234")
 				.userNm("Andrew")
-				.address(Address.builder().address("Seoul").addressDetail("Kang-nam").build())
+				.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
 				.phone("010-1111-1111")
 				.build();
+		
+		userDto = UserDto.UserReq.builder()
+				.address(Address.builder().address1("Yong-in").address2("Cheoin-gu").build())
+				.phone("010-2222-2222")
+				.build();
+		
 		res1 = UserDto.Res.builder()
 				.username("cdssw@naver.com")
 				.userNm("Andrew")
-				.address(Address.builder().address("Seoul").addressDetail("Kang-nam").build())
+				.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
 				.phone("010-1111-1111")
 				.build();
 	}
@@ -87,9 +96,9 @@ public class UserControllerTest extends BaseControllerTest {
 		given(userService.signUpUser(any(UserDto.SignUpReq.class))).willReturn(1L);
 		
 		// when
-		final MvcResult result = mvc.perform(post("/")
+		final MvcResult result = mvc.perform(post("/signup")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(dto)))
+				.content(objectMapper.writeValueAsString(signUpDto)))
 				.andExpect(status().isCreated()) // 201 확인
 				.andReturn();
 		
@@ -106,7 +115,7 @@ public class UserControllerTest extends BaseControllerTest {
 		UserDto.SignUpReq dto = UserDto.SignUpReq.builder().username("cdssw@naver.com").build();
 		
 		// when
-		final MvcResult result = mvc.perform(post("/")
+		final MvcResult result = mvc.perform(post("/signup")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(dto)))
 				.andExpect(status().isBadRequest()) // bad-request(400) 확인
@@ -119,11 +128,27 @@ public class UserControllerTest extends BaseControllerTest {
 	@Test
 	public void testGetUser() throws Exception {
 		// given
-		given(userService.getUser(anyLong())).willReturn(res1);
+		given(userService.getUser(any())).willReturn(res1);
 		
 		// when
-		final MvcResult result = mvc.perform(get("/1")
+		final MvcResult result = mvc.perform(get("/")
 				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		// then
+		log.info(result.getRequest().getContentAsString());
+	}
+	
+	@Test
+	public void testEditUser() throws Exception {
+		// given
+		given(userService.editUser(any(), any(UserDto.UserReq.class))).willReturn(res1);
+		
+		// when
+		final MvcResult result = mvc.perform(put("/")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(userDto)))
 				.andExpect(status().isOk())
 				.andReturn();
 		
