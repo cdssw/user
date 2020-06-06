@@ -5,9 +5,9 @@ spring:
   application:
     name: user-service
   datasource:
-    url: ENC(VcZ0x8t8PTIxk2kKpUrhTltcOqOU+yIt0VqYCbsUdGqzZJo+5zIgeK5++5bt15JVRJzXGDruNZBGhHA4m2tJ9Q==)
-    username: ENC(TbYlb1vTNspS6TDRk4k6/g==)
-    password: ENC(Y4yeVOdyIyLI5A6be6IZCiXD1cY9QJ+i)
+    url: ENC(GxWBLMmzKemJmafHhqeR2SpqFujnNKPt0nGz5QavAUMWHu1Fi6U5846qGsIOgbJNpzE08DVcPfyE5ZcNEmufzw==)
+    username: ENC(yykXibnn5pDeoL+bA2rJyQ==)
+    password: ENC(HPWIFnyQzM88kMM8G17DbjY2wskiOq2E)
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
