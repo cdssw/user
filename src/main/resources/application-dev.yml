@@ -1,9 +1,4 @@
-server:
-  port: 10005
-
 spring:
-  application:
-    name: user-service
   datasource:
     url: ENC(GxWBLMmzKemJmafHhqeR2SpqFujnNKPt0nGz5QavAUMWHu1Fi6U5846qGsIOgbJNpzE08DVcPfyE5ZcNEmufzw==)
     username: ENC(yykXibnn5pDeoL+bA2rJyQ==)
@@ -28,18 +23,9 @@ spring:
       
 eureka:
   client:
-    service-url:
-      default-zone: http://localhost:8761/eureka/ # eureka server 주소
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/ # eureka server 주소
 
-security:
-  oauth2:
-    client:
-      id: auth_id
-      client-secret: auth_secret
-    resource:
-      jwt:
-        key-value: jwt_secret_key # authorization server와 동일하게 셋팅해야 함
-        
 # 아래 설정을 하지 않으면 spring.datasource.password 오류가 발생
 # Open Config Arguments (VM arguments)에 -Djasypt.encryptor.password=비밀키를 입력한다.
 jasypt:
