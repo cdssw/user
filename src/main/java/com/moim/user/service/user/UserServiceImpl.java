@@ -15,7 +15,7 @@ import com.moim.user.service.user.UserDto.SignUpReq;
 import com.moim.user.service.user.UserDto.UserReq;
 
 import lombok.AllArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
 /**
  * UserServiceImpl.java
  * 
@@ -31,6 +31,7 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 	
 	private ModelMapper modelMapper;
@@ -71,7 +72,10 @@ public class UserServiceImpl implements UserService {
 	public Res editUser(String username, UserReq dto) {
 		User user = userRepository.findByUsername(username);
 		user.editUser(dto);
+		log.info("pre");
 		sender.send(topicUserModified, modelMapper.map(user, EventUser.class)); // kafka pub
+		log.info("post");
+
 		return modelMapper.map(user, UserDto.Res.class);
 	}
 
