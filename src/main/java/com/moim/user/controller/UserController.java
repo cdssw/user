@@ -51,7 +51,7 @@ public class UserController {
 		return userService.signUpUser(dto);
 	}
 	
-	//@PreAuthorize("#oauth2.hasScope('write')") // write scope로 제한
+	@PreAuthorize("#oauth2.hasScope('write')") // write scope로 제한
 	@PutMapping
 	@ResponseStatus(value = HttpStatus.OK)
 	public UserDto.Res editUser(@RequestBody @Valid final UserDto.UserReq dto, HttpServletRequest req) {
