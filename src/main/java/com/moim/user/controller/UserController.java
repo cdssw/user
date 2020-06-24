@@ -52,7 +52,7 @@ public class UserController {
 	}
 	
 	//@PreAuthorize("#oauth2.hasScope('write')") // write scope로 제한
-	@PutMapping
+	@PostMapping
 	@ResponseStatus(value = HttpStatus.OK)
 	public UserDto.Res editUser(@RequestBody @Valid final UserDto.UserReq dto, HttpServletRequest req) {
 		String username = req.getHeader("username"); // gateway에서 보내준 username header를 추출
