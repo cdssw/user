@@ -75,4 +75,14 @@ public class UserServiceImpl implements UserService {
 		return modelMapper.map(user, UserDto.Res.class);
 	}
 
+	@Override
+	public boolean existsUser(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+	@Override
+	public boolean existsNickNm(String userNickNm) {
+		return userRepository.existsByUserNickNm(userNickNm);
+	}
+
 }

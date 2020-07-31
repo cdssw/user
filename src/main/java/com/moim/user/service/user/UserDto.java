@@ -1,10 +1,8 @@
 package com.moim.user.service.user;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import com.moim.user.entity.Address;
 import com.moim.user.entity.User;
 
 import lombok.AccessLevel;
@@ -43,19 +41,28 @@ public class UserDto {
 		@NotBlank
 		private String userNm;
 		
-		@Valid
-		private Address address;
+		@NotBlank
+		private String userNickNm;
 		
 		@NotBlank
 		private String phone;
 		
+		private String mainTalent;
+		
+		private String talent;
+		
+		private String interest;
+		
 		@Builder
-		public SignUpReq(String username, String password, String userNm, Address address, String phone) {
+		public SignUpReq(String username, String password, String userNm, String userNickNm, String phone, String mainTalent, String talent, String interest) {
 			this.username = username;
 			this.password = password;
 			this.userNm = userNm;
-			this.address = address;
+			this.userNickNm = userNickNm;
 			this.phone = phone;
+			this.mainTalent = mainTalent;
+			this.talent = talent;
+			this.interest = interest;
 		}
 		
 		public User toEntity() {
@@ -64,8 +71,11 @@ public class UserDto {
 					.password(password)
 					.userType(0)
 					.userNm(userNm)
-					.address(address)
+					.userNickNm(userNickNm)
 					.phone(phone)
+					.mainTalent(mainTalent)
+					.talent(talent)
+					.interest(interest)
 					.build();
 		}
 	}
@@ -74,15 +84,11 @@ public class UserDto {
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class UserReq {
 		
-		@Valid
-		private Address address;
-		
 		@NotBlank
 		private String phone;
 		
 		@Builder
-		public UserReq(Address address, String phone) {
-			this.address = address; // address 수정되도 kafka로 전송은 안됨, 필요한 정보만 전송
+		public UserReq(String phone) {
 			this.phone = phone;
 		}
 	}
@@ -95,7 +101,10 @@ public class UserDto {
 	public static class Res {
 		private String username;
 		private String userNm;
-		private Address address;
+		private String userNick;
 		private String phone;
+		private String mainTalent;
+		private String talent;
+		private String interest;
 	}
 }

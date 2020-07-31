@@ -24,7 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.moim.user.entity.Address;
 import com.moim.user.service.user.UserDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -71,19 +70,20 @@ public class UserControllerTest extends BaseControllerTest {
 				.username("cdssw@naver.com")
 				.password("1234")
 				.userNm("Andrew")
-				.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
+				.userNickNm("Blue")
 				.phone("010-1111-1111")
+				.mainTalent("프로그램 개발")
+				.talent("자바,웹 개발,MSA,파이썬")
+				.interest("음악,영상")
 				.build();
 		
 		userDto = UserDto.UserReq.builder()
-				.address(Address.builder().address1("Yong-in").address2("Cheoin-gu").build())
 				.phone("010-2222-2222")
 				.build();
 		
 		res1 = UserDto.Res.builder()
 				.username("cdssw@naver.com")
 				.userNm("Andrew")
-				.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
 				.phone("010-1111-1111")
 				.build();
 	}
@@ -149,6 +149,38 @@ public class UserControllerTest extends BaseControllerTest {
 		final MvcResult result = mvc.perform(put("/")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(userDto)))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		// then
+		log.info(result.getRequest().getContentAsString());
+	}
+	
+	@Test
+	public void testCheckUsername() throws Exception {
+		// given
+		given(userService.existsUser(any())).willReturn(true);
+		
+		// when
+		final MvcResult result = mvc.perform(get("/check/username")
+				.contentType(MediaType.APPLICATION_JSON)
+				.queryParam("username", "cdssw@naver.com"))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		// then
+		log.info(result.getRequest().getContentAsString());
+	}
+	
+	@Test
+	public void testCheckNicknm() throws Exception {
+		// given
+		given(userService.existsUser(any())).willReturn(true);
+		
+		// when
+		final MvcResult result = mvc.perform(get("/check/nicknm")
+				.contentType(MediaType.APPLICATION_JSON)
+				.queryParam("nicknm", "Blue"))
 				.andExpect(status().isOk())
 				.andReturn();
 		

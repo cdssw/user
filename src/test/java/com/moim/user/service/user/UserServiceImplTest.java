@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 
-import com.moim.user.entity.Address;
 import com.moim.user.entity.User;
 import com.moim.user.event.Sender;
 import com.moim.user.repository.UserRepository;
@@ -54,7 +53,6 @@ public class UserServiceImplTest {
 				.username("cdssw@naver.com")
 				.password("1234")
 				.userNm("Andrew")
-				.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
 				.phone("010-1111-1111")
 				.build();
 	}
@@ -90,7 +88,6 @@ public class UserServiceImplTest {
 		// given
 		given(userRepository.findByUsername(any())).willReturn(dto.toEntity());
 		UserDto.UserReq req = UserDto.UserReq.builder()
-				.address(Address.builder().address1("Yong-in").address2("Cheoin-gu").build())
 				.phone("010-9999-9999")
 				.build();
 		
@@ -100,5 +97,29 @@ public class UserServiceImplTest {
 		// then
 		verify(sender).send(any(), any());
 		assertEquals(res.getPhone(), req.getPhone());
+	}
+	
+	@Test
+	public void testExistsUsername() {
+		// given
+		given(userRepository.existsByUsername(any())).willReturn(true);
+		
+		// when
+		boolean exists = userServiceImpl.existsUser("cdssw@naver.com");
+		
+		// then
+		assertEquals(exists, true);
+	}
+	
+	@Test
+	public void testExistsUserNickNm() {
+		// given
+		given(userRepository.existsByUserNickNm(any())).willReturn(true);
+		
+		// when
+		boolean exists = userServiceImpl.existsNickNm("Blue");
+		
+		// then
+		assertEquals(exists, true);
 	}
 }

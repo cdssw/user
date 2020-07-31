@@ -6,7 +6,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.moim.user.entity.Address;
 import com.moim.user.entity.User;
 import com.moim.user.repository.UserRepository;
 
@@ -41,8 +40,11 @@ public class DataInitializer implements ApplicationRunner {
 					.password(passwordEncoder.encode("1234"))
 					.userType(0)
 					.userNm("Andrew")
-					.address(Address.builder().address1("Seoul").address2("Kang-nam").build())
+					.userNickNm("Blue")
 					.phone("010-1111-1111")
+					.mainTalent("프로그램 개발")
+					.talent("자바,웹 개발,MSA,파이썬")
+					.interest("음악,영상")
 					.build();
 			userRepository.save(user);
 		}
@@ -53,8 +55,11 @@ public class DataInitializer implements ApplicationRunner {
 					.password(passwordEncoder.encode("1234"))
 					.userType(0)
 					.userNm("Monica")
-					.address(Address.builder().address1("Seoul").address2("Song-pa").build())
+					.userNickNm("Ggg")
 					.phone("010-2222-2222")
+					.mainTalent("부동산")
+					.talent("기타")
+					.interest("주택")
 					.build();
 			userRepository.save(user);
 		}
@@ -65,8 +70,11 @@ public class DataInitializer implements ApplicationRunner {
 					.password(passwordEncoder.encode("1234"))
 					.userType(0)
 					.userNm("Michael")
-					.address(Address.builder().address1("Seoul").address2("Seo-cho").build())
+					.userNickNm("Tester")
 					.phone("010-3333-3333")
+					.mainTalent("샘플")
+					.talent("그림,편집,컴퓨터")
+					.interest("유튜브,산")
 					.build();
 			userRepository.save(user);
 		}

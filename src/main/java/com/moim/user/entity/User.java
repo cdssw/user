@@ -1,7 +1,6 @@
 package com.moim.user.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,24 +49,31 @@ public class User extends BaseTimeEntity {
 
 	private String userNm;
 	
-	@Embedded
-	private Address address;
+	private String userNickNm;
 	
 	private String phone;
 	
+	private String mainTalent;
+	
+	private String talent;
+	
+	private String interest;
+	
 	@Builder
-	public User(String username, String password, int userType, String userNm, Address address, String phone) {
+	public User(String username, String password, int userType, String userNm, String userNickNm, String phone, String mainTalent, String talent, String interest) {
 		this.username = username;
 		this.password = password;
 		this.userType = userType;
 		this.userNm = userNm;
-		this.address = address;
+		this.userNickNm = userNickNm;
 		this.phone = phone;
+		this.mainTalent = mainTalent;
+		this.talent = talent;
+		this.interest = interest;
 	}
 	
 	// 사용자 정보 변경
 	public void editUser(UserDto.UserReq dto) {
-		this.address = dto.getAddress() == null ? address : dto.getAddress();
 		this.phone = dto.getPhone() == null ? phone : dto.getPhone();
 	}
 	

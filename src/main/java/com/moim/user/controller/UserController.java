@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,4 +59,16 @@ public class UserController {
 		String username = req.getHeader("username"); // gateway에서 보내준 username header를 추출
 		return userService.editUser(username, dto);
 	}
+	
+	@GetMapping("/check/username")
+	@ResponseStatus(value = HttpStatus.OK)
+	public int checkUsername(@RequestParam("username") final String username) {
+		return userService.existsUser(username) ? 1 : 0;
+	}
+	
+	@GetMapping("/check/nicknm")
+	@ResponseStatus(value = HttpStatus.OK)
+	public int checkNicknm(@RequestParam("nicknm") final String userNickNm) {
+		return userService.existsUser(userNickNm) ? 1 : 0;
+	}	
 }

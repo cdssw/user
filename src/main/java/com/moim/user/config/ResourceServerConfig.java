@@ -34,7 +34,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			"/swagger-ui.html",
 			"/webjars/**",
 			"/h2-console/**",
-			"/*/v2/api-docs"			
+			"/*/v2/api-docs",
+			"/check/**"
 	};
 	
 	@Override
