@@ -69,6 +69,6 @@ public class UserController {
 	@GetMapping("/check/nicknm")
 	@ResponseStatus(value = HttpStatus.OK)
 	public int checkNicknm(@RequestParam("nicknm") final String userNickNm) {
-		return userService.existsUser(userNickNm) ? 1 : 0;
+		return userService.existsNickNm(userNickNm) ? 1 : 0;
 	}	
 }
