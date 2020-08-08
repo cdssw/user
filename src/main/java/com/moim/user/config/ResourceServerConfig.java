@@ -43,7 +43,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.headers().frameOptions().disable(); // X-Frame-Options 차단 해제
 		http.authorizeRequests()
 			.antMatchers(WHITE_LIST).permitAll()
-			.antMatchers(HttpMethod.POST, "/signup/").permitAll() // 회원가입은 허용
+			.antMatchers(HttpMethod.POST, "/signup").permitAll() // 회원가입은 허용
 			.anyRequest().authenticated(); // 모든 요청 호출시 인증되어야 함
 	}
 }

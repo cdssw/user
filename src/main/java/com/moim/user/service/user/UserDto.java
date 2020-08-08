@@ -53,8 +53,18 @@ public class UserDto {
 		
 		private String interest;
 		
+		private String avatarPath;
+		
 		@Builder
-		public SignUpReq(String username, String password, String userNm, String userNickNm, String phone, String mainTalent, String talent, String interest) {
+		public SignUpReq(String username
+				, String password
+				, String userNm
+				, String userNickNm
+				, String phone
+				, String mainTalent
+				, String talent
+				, String interest
+				, String avatarPath) {
 			this.username = username;
 			this.password = password;
 			this.userNm = userNm;
@@ -63,6 +73,7 @@ public class UserDto {
 			this.mainTalent = mainTalent;
 			this.talent = talent;
 			this.interest = interest;
+			this.avatarPath = avatarPath;
 		}
 		
 		public User toEntity() {
@@ -76,6 +87,7 @@ public class UserDto {
 					.mainTalent(mainTalent)
 					.talent(talent)
 					.interest(interest)
+					.avatarPath(avatarPath)
 					.build();
 		}
 	}

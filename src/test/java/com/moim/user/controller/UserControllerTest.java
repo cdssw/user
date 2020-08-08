@@ -75,6 +75,7 @@ public class UserControllerTest extends BaseControllerTest {
 				.mainTalent("프로그램 개발")
 				.talent("자바,웹 개발,MSA,파이썬")
 				.interest("음악,영상")
+				.avatarPath("/file/test.jpg")
 				.build();
 		
 		userDto = UserDto.UserReq.builder()

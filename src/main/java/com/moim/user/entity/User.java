@@ -59,8 +59,19 @@ public class User extends BaseTimeEntity {
 	
 	private String interest;
 	
+	private String avatarPath;
+	
 	@Builder
-	public User(String username, String password, int userType, String userNm, String userNickNm, String phone, String mainTalent, String talent, String interest) {
+	public User(String username
+			, String password
+			, int userType
+			, String userNm
+			, String userNickNm
+			, String phone
+			, String mainTalent
+			, String talent
+			, String interest
+			, String avatarPath) {
 		this.username = username;
 		this.password = password;
 		this.userType = userType;
@@ -70,6 +81,7 @@ public class User extends BaseTimeEntity {
 		this.mainTalent = mainTalent;
 		this.talent = talent;
 		this.interest = interest;
+		this.avatarPath = avatarPath;
 	}
 	
 	// 사용자 정보 변경
