@@ -113,10 +113,11 @@ public class UserDto {
 	public static class Res {
 		private String username;
 		private String userNm;
-		private String userNick;
+		private String userNickNm;
 		private String phone;
 		private String mainTalent;
 		private String talent;
 		private String interest;
+		private String avatarPath;
 	}
 }
