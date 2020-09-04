@@ -91,7 +91,7 @@ public class UserControllerTest extends BaseControllerTest {
 	
 	// 테스트 하는것은 dto를 가지고 controller 호출이 잘 되는지 확인
 	@Test
-	public void testSingUpUser() throws Exception {
+	public void testSignUpUser() throws Exception {
 		// given
 		// 서비스 호출시 무조건 1L 리턴
 		given(userService.signUpUser(any(UserDto.SignUpReq.class))).willReturn(1L);

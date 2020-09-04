@@ -1,6 +1,7 @@
 package com.moim.user.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -61,6 +62,9 @@ public class User extends BaseTimeEntity {
 	
 	private String avatarPath;
 	
+	@Embedded
+	private HopePlace hopePlace;
+	
 	@Builder
 	public User(String username
 			, String password
@@ -71,7 +75,8 @@ public class User extends BaseTimeEntity {
 			, String mainTalent
 			, String talent
 			, String interest
-			, String avatarPath) {
+			, String avatarPath
+			, HopePlace hopePlace) {
 		this.username = username;
 		this.password = password;
 		this.userType = userType;
@@ -82,11 +87,16 @@ public class User extends BaseTimeEntity {
 		this.talent = talent;
 		this.interest = interest;
 		this.avatarPath = avatarPath;
+		this.hopePlace = hopePlace;
 	}
 	
 	// 사용자 정보 변경
 	public void editUser(UserDto.UserReq dto) {
 		this.phone = dto.getPhone() == null ? phone : dto.getPhone();
+		this.mainTalent = dto.getMainTalent() == null ? mainTalent : dto.getMainTalent();
+		this.talent = dto.getTalent() == null ? talent : dto.getTalent();
+		this.interest = dto.getInterest() == null ? interest : dto.getInterest();
+		this.hopePlace = dto.getHopePlace() == null ? hopePlace : dto.getHopePlace();
 	}
 	
 	// 비밀번호 변경

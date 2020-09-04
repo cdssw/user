@@ -3,6 +3,7 @@ package com.moim.user.service.user;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.moim.user.entity.HopePlace;
 import com.moim.user.entity.User;
 
 import lombok.AccessLevel;
@@ -96,12 +97,23 @@ public class UserDto {
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class UserReq {
 		
-		@NotBlank
 		private String phone;
 		
+		private String mainTalent;
+		
+		private String talent;
+		
+		private String interest;
+		
+		private HopePlace hopePlace;
+		
 		@Builder
-		public UserReq(String phone) {
+		public UserReq(String phone, String mainTalent, String talent, String interest, HopePlace hopePlace) {
 			this.phone = phone;
+			this.mainTalent = mainTalent;
+			this.talent = talent;
+			this.interest = interest;
+			this.hopePlace = hopePlace;
 		}
 	}
 	
@@ -119,5 +131,6 @@ public class UserDto {
 		private String talent;
 		private String interest;
 		private String avatarPath;
+		private HopePlace hopePlace;
 	}
 }
