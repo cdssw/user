@@ -96,7 +96,17 @@ public class User extends BaseTimeEntity {
 		this.mainTalent = dto.getMainTalent() == null ? mainTalent : dto.getMainTalent();
 		this.talent = dto.getTalent() == null ? talent : dto.getTalent();
 		this.interest = dto.getInterest() == null ? interest : dto.getInterest();
-		this.hopePlace = dto.getHopePlace() == null ? hopePlace : dto.getHopePlace();
+		
+		HopePlace h = hopePlace; 
+		if(dto.getHopePlace() != null) {
+			h = HopePlace.builder()
+					.place1(dto.getHopePlace().getPlace1())
+					.place2(dto.getHopePlace().getPlace2())
+					.place3(dto.getHopePlace().getPlace3())
+					.build();
+		}
+		this.hopePlace = h;
+
 	}
 	
 	// 비밀번호 변경
