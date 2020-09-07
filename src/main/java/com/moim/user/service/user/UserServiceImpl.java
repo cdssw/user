@@ -4,12 +4,17 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.moim.kafka.EventUser;
 import com.moim.user.entity.User;
 import com.moim.user.event.Sender;
+import com.moim.user.except.ErrorCode;
+import com.moim.user.except.UserBusinessException;
 import com.moim.user.repository.UserRepository;
+import com.moim.user.service.user.UserDto.PasswordChangeReq;
 import com.moim.user.service.user.UserDto.Res;
 import com.moim.user.service.user.UserDto.SignUpReq;
 import com.moim.user.service.user.UserDto.UserReq;
@@ -83,6 +88,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean existsNickNm(String userNickNm) {
 		return userRepository.existsByUserNickNm(userNickNm);
+	}
+
+	@Transactional
+	@Override
+	public void passwordChange(String username, PasswordChangeReq dto) {
+		User user = userRepository.findByUsername(username);
+		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		if(!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) {
+			throw new UserBusinessException(ErrorCode.INVALID_PASSWORD);
+		}
+		user.changePassword(dto.getPassword());
 	}
 
 }

@@ -20,4 +20,5 @@ public interface UserService {
 	UserDto.Res editUser(final String username, UserDto.UserReq dto);
 	boolean existsUser(final String username);
 	boolean existsNickNm(final String userNickNm);
+	void passwordChange(final String username, final UserDto.PasswordChangeReq dto);
 }

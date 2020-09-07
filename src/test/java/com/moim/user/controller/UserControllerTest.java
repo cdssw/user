@@ -188,4 +188,20 @@ public class UserControllerTest extends BaseControllerTest {
 		// then
 		log.info(result.getRequest().getContentAsString());
 	}
+	
+	@Test
+	public void testPasswordChange() throws Exception {
+		// given
+		UserDto.PasswordChangeReq dto = UserDto.PasswordChangeReq.builder().currentPassword("1234").password("qwer").build();
+				
+		// when
+		final MvcResult result = mvc.perform(post("/change/password")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(dto)))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		// then
+		log.info(result.getRequest().getContentAsString());
+	}
 }

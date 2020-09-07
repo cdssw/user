@@ -13,10 +13,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.moim.user.entity.User;
 import com.moim.user.event.Sender;
 import com.moim.user.repository.UserRepository;
+import com.moim.user.service.user.UserDto.PasswordChangeReq;
 
 /**
  * UserServiceImplTest.java
@@ -44,7 +47,10 @@ public class UserServiceImplTest {
 	private Sender sender;
 	
 	private UserDto.SignUpReq dto = null;
+	private User user = null;
 
+	private PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	
 	@Before
 	public void setUp() {
 		ModelMapper modelMapper = new ModelMapper();
@@ -52,6 +58,12 @@ public class UserServiceImplTest {
 		dto = UserDto.SignUpReq.builder()
 				.username("cdssw@naver.com")
 				.password("1234")
+				.userNm("Andrew")
+				.phone("010-1111-1111")
+				.build();
+		user = User.builder()
+				.username("cdssw@naver.com")
+				.password(passwordEncoder.encode("1234"))
 				.userNm("Andrew")
 				.phone("010-1111-1111")
 				.build();
@@ -121,5 +133,18 @@ public class UserServiceImplTest {
 		
 		// then
 		assertEquals(exists, true);
+	}
+	
+	@Test
+	public void testPasswordChange() {
+		// given
+		given(userRepository.findByUsername(any())).willReturn(user);
+		PasswordChangeReq dto = PasswordChangeReq.builder()
+				.currentPassword("1234")
+				.password("qwer")
+				.build();
+		
+		// when
+		userServiceImpl.passwordChange("cdssw@naver.com", dto);
 	}
 }

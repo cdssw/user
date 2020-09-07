@@ -118,6 +118,23 @@ public class UserDto {
 	}
 	
 	@Getter
+	@NoArgsConstructor(access = AccessLevel.PROTECTED)
+	public static class PasswordChangeReq {
+		
+		@NotBlank
+		private String currentPassword;
+		
+		@NotBlank
+		private String password;
+		
+		@Builder
+		public PasswordChangeReq(String currentPassword, String password) {
+			this.currentPassword = currentPassword;
+			this.password = password;
+		}
+	}
+	
+	@Getter
 	@Setter
 	@Builder
 	@NoArgsConstructor

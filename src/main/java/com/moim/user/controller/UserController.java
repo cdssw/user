@@ -71,4 +71,11 @@ public class UserController {
 	public int checkNicknm(@RequestParam("nicknm") final String userNickNm) {
 		return userService.existsNickNm(userNickNm) ? 1 : 0;
 	}	
+	
+	@PostMapping("/change/password")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void passwordChange(@RequestBody @Valid UserDto.PasswordChangeReq dto, HttpServletRequest req) {
+		String username = req.getHeader("username"); // gateway에서 보내준 username header를 추출
+		userService.passwordChange(username, dto);
+	}
 }
