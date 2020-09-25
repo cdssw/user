@@ -64,6 +64,21 @@ public class DataInitializer implements ApplicationRunner {
 			userRepository.save(user);
 		}
 		
+		if(userRepository.findByUsername("kimkh093@nate.com") == null) {
+			User user = User.builder()
+					.username("kimkh093@nate.com")
+					.password(passwordEncoder.encode("1234"))
+					.userType(0)
+					.userNm("김규현")
+					.userNickNm("Developer")
+					.phone("010-5555-5555")
+					.mainTalent("개발")
+					.talent("모바일,자바,안드로이드,아이폰")
+					.interest("테스트,휴식")
+					.build();
+			userRepository.save(user);
+		}		
+		
 		if(userRepository.findByUsername("michael@naver.com") == null) {
 			User user = User.builder()
 					.username("michael@naver.com")
