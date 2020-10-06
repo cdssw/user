@@ -101,4 +101,10 @@ public class UserServiceImpl implements UserService {
 		user.changePassword(dto.getPassword());
 	}
 
+	@Override
+	public String getUserAvatar(String username) {
+		User user = userRepository.findByUsername(username);
+		return user.getAvatarPath();
+	}
+
 }

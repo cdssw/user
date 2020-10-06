@@ -78,4 +78,10 @@ public class UserController {
 		String username = req.getHeader("username"); // gateway에서 보내준 username header를 추출
 		userService.passwordChange(username, dto);
 	}
+	
+	@GetMapping("/avatar")
+	@ResponseStatus(value = HttpStatus.OK)
+	public String getUserAvatar(@RequestParam("username") final String username) {
+		return userService.getUserAvatar(username);
+	}
 }

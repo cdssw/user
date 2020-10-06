@@ -204,4 +204,20 @@ public class UserControllerTest extends BaseControllerTest {
 		// then
 		log.info(result.getRequest().getContentAsString());
 	}
+	
+	@Test
+	public void testGetUserAvatar() throws Exception {
+		// given
+		given(userService.getUserAvatar(any())).willReturn("/avatar/path");
+		
+		// when
+		final MvcResult result = mvc.perform(get("/avatar")
+				.param("username", "cdssw@naver.com")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		// then
+		log.info(result.getRequest().getContentAsString());
+	}	
 }

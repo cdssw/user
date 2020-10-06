@@ -66,6 +66,7 @@ public class UserServiceImplTest {
 				.password(passwordEncoder.encode("1234"))
 				.userNm("Andrew")
 				.phone("010-1111-1111")
+				.avatarPath("/avatar/path")
 				.build();
 	}
 
@@ -147,4 +148,16 @@ public class UserServiceImplTest {
 		// when
 		userServiceImpl.passwordChange("cdssw@naver.com", dto);
 	}
+	
+	@Test
+	public void testGetUserAvatar() {
+		// given
+		given(userRepository.findByUsername(any())).willReturn(user);
+		
+		// when
+		String avatarPath = userServiceImpl.getUserAvatar("cdssw@naver.com");
+		
+		// then
+		assertEquals(avatarPath, user.getAvatarPath());
+	}	
 }
