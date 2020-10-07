@@ -96,6 +96,7 @@ public class User extends BaseTimeEntity {
 		this.mainTalent = dto.getMainTalent() == null ? mainTalent : dto.getMainTalent();
 		this.talent = dto.getTalent() == null ? talent : dto.getTalent();
 		this.interest = dto.getInterest() == null ? interest : dto.getInterest();
+		this.avatarPath = dto.getAvatarPath() == null ? avatarPath : dto.getAvatarPath();
 		
 		HopePlace h = hopePlace; 
 		if(dto.getHopePlace() != null) {

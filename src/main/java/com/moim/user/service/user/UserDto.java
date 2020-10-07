@@ -97,6 +97,7 @@ public class UserDto {
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class UserReq {
 		
+		@NotBlank
 		private String phone;
 		
 		private String mainTalent;
@@ -107,13 +108,16 @@ public class UserDto {
 		
 		private HopePlace hopePlace;
 		
+		private String avatarPath;
+		
 		@Builder
-		public UserReq(String phone, String mainTalent, String talent, String interest, HopePlace hopePlace) {
+		public UserReq(String phone, String mainTalent, String talent, String interest, HopePlace hopePlace, String avatarPath) {
 			this.phone = phone;
 			this.mainTalent = mainTalent;
 			this.talent = talent;
 			this.interest = interest;
 			this.hopePlace = hopePlace;
+			this.avatarPath = avatarPath;
 		}
 	}
 	
