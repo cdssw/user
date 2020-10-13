@@ -110,6 +110,18 @@ public class User extends BaseTimeEntity {
 
 	}
 	
+	public void editHopePlace(UserDto.HopePlaceReq dto) {
+		HopePlace h = hopePlace; 
+		if(dto.getHopePlace() != null) {
+			h = HopePlace.builder()
+					.place1(dto.getHopePlace().getPlace1())
+					.place2(dto.getHopePlace().getPlace2())
+					.place3(dto.getHopePlace().getPlace3())
+					.build();
+		}
+		this.hopePlace = h;
+	}
+	
 	// 비밀번호 변경
 	public void changePassword(String password) {
 		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();

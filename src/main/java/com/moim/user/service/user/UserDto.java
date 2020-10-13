@@ -123,6 +123,18 @@ public class UserDto {
 	
 	@Getter
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
+	public static class HopePlaceReq {
+		
+		private HopePlace hopePlace;
+		
+		@Builder
+		public HopePlaceReq(HopePlace hopePlace) {
+			this.hopePlace = hopePlace;
+		}
+	}
+	
+	@Getter
+	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class PasswordChangeReq {
 		
 		@NotBlank

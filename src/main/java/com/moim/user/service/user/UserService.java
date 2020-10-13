@@ -18,6 +18,7 @@ public interface UserService {
 	long signUpUser(UserDto.SignUpReq dto);
 	UserDto.Res getUser(final String username);
 	UserDto.Res editUser(final String username, UserDto.UserReq dto);
+	UserDto.Res editHopePlace(final String username, UserDto.HopePlaceReq dto);
 	boolean existsUser(final String username);
 	boolean existsNickNm(final String userNickNm);
 	void passwordChange(final String username, final UserDto.PasswordChangeReq dto);

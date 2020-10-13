@@ -60,6 +60,13 @@ public class UserController {
 		return userService.editUser(username, dto);
 	}
 	
+	@PutMapping("/hopeplace")
+	@ResponseStatus(value = HttpStatus.OK)
+	public UserDto.Res editHopePlace(@RequestBody @Valid final UserDto.HopePlaceReq dto, HttpServletRequest req) {
+		String username = req.getHeader("username"); // gateway에서 보내준 username header를 추출
+		return userService.editHopePlace(username, dto);
+	}	
+	
 	@GetMapping("/check/username")
 	@ResponseStatus(value = HttpStatus.OK)
 	public int checkUsername(@RequestParam("username") final String username) {

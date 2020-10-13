@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.moim.user.entity.HopePlace;
 import com.moim.user.entity.User;
 import com.moim.user.event.Sender;
 import com.moim.user.repository.UserRepository;
@@ -67,6 +68,7 @@ public class UserServiceImplTest {
 				.userNm("Andrew")
 				.phone("010-1111-1111")
 				.avatarPath("/avatar/path")
+				.hopePlace(HopePlace.builder().place1("서울시 강남구").build())
 				.build();
 	}
 
@@ -159,5 +161,20 @@ public class UserServiceImplTest {
 		
 		// then
 		assertEquals(avatarPath, user.getAvatarPath());
-	}	
+	}
+	
+	@Test
+	public void testEditHopePlace() {
+		// given
+		given(userRepository.findByUsername(any())).willReturn(user);
+		UserDto.HopePlaceReq req = UserDto.HopePlaceReq.builder()
+				.hopePlace(HopePlace.builder().place1("서울시 강남구").build())
+				.build();
+		
+		// when
+		UserDto.Res res = userServiceImpl.editHopePlace("cdssw@naver.com", req);
+		
+		// then
+		assertEquals(res.getHopePlace().getPlace1(), user.getHopePlace().getPlace1());
+	}
 }
