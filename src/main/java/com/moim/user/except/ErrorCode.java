@@ -25,6 +25,7 @@ public enum ErrorCode {
 	USER_INVALID("U_00002", "본인이 아닙니다."),
 	ELEMENT_NOT_FOUND("E_00001", "항목이 존재하지 않습니다."),
 	INVALID_PASSWORD("E_00002", "비밀번호가 일치하지 않습니다."),
+	MAXIMUM_COUNT("E_00003", "최대 갯수를 초과하였습니다."),
 	;
 	
 	private final String code;

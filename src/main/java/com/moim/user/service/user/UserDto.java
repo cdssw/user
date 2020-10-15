@@ -1,5 +1,7 @@
 package com.moim.user.service.user;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -106,30 +108,15 @@ public class UserDto {
 		
 		private String interest;
 		
-		private HopePlace hopePlace;
-		
 		private String avatarPath;
 		
 		@Builder
-		public UserReq(String phone, String mainTalent, String talent, String interest, HopePlace hopePlace, String avatarPath) {
+		public UserReq(String phone, String mainTalent, String talent, String interest, String avatarPath) {
 			this.phone = phone;
 			this.mainTalent = mainTalent;
 			this.talent = talent;
 			this.interest = interest;
-			this.hopePlace = hopePlace;
 			this.avatarPath = avatarPath;
-		}
-	}
-	
-	@Getter
-	@NoArgsConstructor(access = AccessLevel.PROTECTED)
-	public static class HopePlaceReq {
-		
-		private HopePlace hopePlace;
-		
-		@Builder
-		public HopePlaceReq(HopePlace hopePlace) {
-			this.hopePlace = hopePlace;
 		}
 	}
 	
@@ -164,6 +151,6 @@ public class UserDto {
 		private String talent;
 		private String interest;
 		private String avatarPath;
-		private HopePlace hopePlace;
+		private List<HopePlace> hopePlaceList;
 	}
 }

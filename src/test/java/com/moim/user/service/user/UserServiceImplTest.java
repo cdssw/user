@@ -7,6 +7,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.moim.user.entity.HopePlace;
 import com.moim.user.entity.User;
 import com.moim.user.event.Sender;
+import com.moim.user.repository.HopePlaceRepository;
 import com.moim.user.repository.UserRepository;
 import com.moim.user.service.user.UserDto.PasswordChangeReq;
 
@@ -41,8 +44,8 @@ public class UserServiceImplTest {
 	// 테스트 하고자 하는 class
 	private UserServiceImpl userServiceImpl;
 	
-	@Mock
-	private UserRepository userRepository;
+	@Mock private UserRepository userRepository;
+	@Mock private HopePlaceRepository hopePlaceRepository;
 	
 	@Mock
 	private Sender sender;
@@ -55,7 +58,7 @@ public class UserServiceImplTest {
 	@Before
 	public void setUp() {
 		ModelMapper modelMapper = new ModelMapper();
-		userServiceImpl = new UserServiceImpl(modelMapper, userRepository, sender);
+		userServiceImpl = new UserServiceImpl(modelMapper, userRepository, hopePlaceRepository, sender);
 		dto = UserDto.SignUpReq.builder()
 				.username("cdssw@naver.com")
 				.password("1234")
@@ -68,7 +71,6 @@ public class UserServiceImplTest {
 				.userNm("Andrew")
 				.phone("010-1111-1111")
 				.avatarPath("/avatar/path")
-				.hopePlace(HopePlace.builder().place1("서울시 강남구").build())
 				.build();
 	}
 
@@ -89,7 +91,9 @@ public class UserServiceImplTest {
 	@Test
 	public void testGetUser() {
 		// given
+		HopePlace hopePlace = mock(HopePlace.class);
 		given(userRepository.findByUsername(any())).willReturn(dto.toEntity());
+		given(hopePlaceRepository.findByUser(any())).willReturn(Arrays.asList(hopePlace));
 		
 		// when
 		UserDto.Res res = userServiceImpl.getUser("cdssw@naver.com");
@@ -161,20 +165,5 @@ public class UserServiceImplTest {
 		
 		// then
 		assertEquals(avatarPath, user.getAvatarPath());
-	}
-	
-	@Test
-	public void testEditHopePlace() {
-		// given
-		given(userRepository.findByUsername(any())).willReturn(user);
-		UserDto.HopePlaceReq req = UserDto.HopePlaceReq.builder()
-				.hopePlace(HopePlace.builder().place1("서울시 강남구").build())
-				.build();
-		
-		// when
-		UserDto.Res res = userServiceImpl.editHopePlace("cdssw@naver.com", req);
-		
-		// then
-		assertEquals(res.getHopePlace().getPlace1(), user.getHopePlace().getPlace1());
 	}
 }

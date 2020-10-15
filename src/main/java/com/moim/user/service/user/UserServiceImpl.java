@@ -13,8 +13,8 @@ import com.moim.user.entity.User;
 import com.moim.user.event.Sender;
 import com.moim.user.except.ErrorCode;
 import com.moim.user.except.UserBusinessException;
+import com.moim.user.repository.HopePlaceRepository;
 import com.moim.user.repository.UserRepository;
-import com.moim.user.service.user.UserDto.HopePlaceReq;
 import com.moim.user.service.user.UserDto.PasswordChangeReq;
 import com.moim.user.service.user.UserDto.Res;
 import com.moim.user.service.user.UserDto.SignUpReq;
@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
 	
 	private ModelMapper modelMapper;
 	private UserRepository userRepository;
+	private HopePlaceRepository hopePlaceRepository;
 	private Sender sender;
 	
 	private static String topicUserModified;
@@ -68,6 +69,7 @@ public class UserServiceImpl implements UserService {
 	public Res getUser(final String username) {
 		User user = userRepository.findByUsername(username);
 		Res res = modelMapper.map(user, Res.class);
+		res.setHopePlaceList(hopePlaceRepository.findByUser(user));
 		return res;
 	}
 
@@ -107,14 +109,4 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findByUsername(username);
 		return user.getAvatarPath();
 	}
-
-	@Transactional
-	@Override
-	public Res editHopePlace(String username, HopePlaceReq dto) {
-		User user = userRepository.findByUsername(username);
-		user.editHopePlace(dto);
-
-		return modelMapper.map(user, UserDto.Res.class);
-	}
-
 }

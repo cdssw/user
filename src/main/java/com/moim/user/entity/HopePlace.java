@@ -1,6 +1,12 @@
 package com.moim.user.entity;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AccessLevel;
@@ -21,24 +27,33 @@ import lombok.NoArgsConstructor;
  * 2020. 9. 1.    cdssw            최초 생성
  * </pre>
  */
-@Embeddable
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class HopePlace {
+@Getter
+@Entity
+public class HopePlace extends BaseTimeEntity {
 
-	@NotBlank
-	private String place1;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@NotBlank
-	private String place2;
+	private String sido;
 	
 	@NotBlank
-	private String place3;
+	private String sgg;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@Builder
-	public HopePlace(String place1, String place2, String place3) {
-		this.place1 = place1;
-		this.place2 = place2;
-		this.place3 = place3;
+	public HopePlace(String sido, String sgg) {
+		this.sido = sido;
+		this.sgg = sgg;
 	}
+	
+	public void editUser(User user) {
+		this.user = user;
+	}
+	
 }

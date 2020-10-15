@@ -1,7 +1,8 @@
 package com.moim.user.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -62,9 +63,6 @@ public class User extends BaseTimeEntity {
 	
 	private String avatarPath;
 	
-	@Embedded
-	private HopePlace hopePlace;
-	
 	@Builder
 	public User(String username
 			, String password
@@ -76,7 +74,7 @@ public class User extends BaseTimeEntity {
 			, String talent
 			, String interest
 			, String avatarPath
-			, HopePlace hopePlace) {
+			) {
 		this.username = username;
 		this.password = password;
 		this.userType = userType;
@@ -87,7 +85,6 @@ public class User extends BaseTimeEntity {
 		this.talent = talent;
 		this.interest = interest;
 		this.avatarPath = avatarPath;
-		this.hopePlace = hopePlace;
 	}
 	
 	// 사용자 정보 변경
@@ -97,29 +94,6 @@ public class User extends BaseTimeEntity {
 		this.talent = dto.getTalent() == null ? talent : dto.getTalent();
 		this.interest = dto.getInterest() == null ? interest : dto.getInterest();
 		this.avatarPath = dto.getAvatarPath() == null ? avatarPath : dto.getAvatarPath();
-		
-		HopePlace h = hopePlace; 
-		if(dto.getHopePlace() != null) {
-			h = HopePlace.builder()
-					.place1(dto.getHopePlace().getPlace1())
-					.place2(dto.getHopePlace().getPlace2())
-					.place3(dto.getHopePlace().getPlace3())
-					.build();
-		}
-		this.hopePlace = h;
-
-	}
-	
-	public void editHopePlace(UserDto.HopePlaceReq dto) {
-		HopePlace h = hopePlace; 
-		if(dto.getHopePlace() != null) {
-			h = HopePlace.builder()
-					.place1(dto.getHopePlace().getPlace1())
-					.place2(dto.getHopePlace().getPlace2())
-					.place3(dto.getHopePlace().getPlace3())
-					.build();
-		}
-		this.hopePlace = h;
 	}
 	
 	// 비밀번호 변경
