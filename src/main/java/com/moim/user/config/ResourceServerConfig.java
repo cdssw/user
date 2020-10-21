@@ -44,6 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers(WHITE_LIST).permitAll()
 			.antMatchers(HttpMethod.POST, "/signup").permitAll() // 회원가입은 허용
+			.antMatchers(HttpMethod.GET, "/avatar").permitAll() // 아바타조회 허용
 			.anyRequest().authenticated(); // 모든 요청 호출시 인증되어야 함
 	}
 }
