@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * MeetBusinessException.java
+ * UserBusinessException.java
  * 
  * @author cdssw
  * @since Apr 29, 2020
