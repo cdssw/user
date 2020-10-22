@@ -1,8 +1,7 @@
 package com.moim.user.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -63,6 +62,9 @@ public class User extends BaseTimeEntity {
 	
 	private String avatarPath;
 	
+	@Embedded
+	private Policy policy;
+	
 	@Builder
 	public User(String username
 			, String password
@@ -74,6 +76,7 @@ public class User extends BaseTimeEntity {
 			, String talent
 			, String interest
 			, String avatarPath
+			, Policy policy
 			) {
 		this.username = username;
 		this.password = password;
@@ -85,6 +88,7 @@ public class User extends BaseTimeEntity {
 		this.talent = talent;
 		this.interest = interest;
 		this.avatarPath = avatarPath;
+		this.policy = policy;
 	}
 	
 	// 사용자 정보 변경

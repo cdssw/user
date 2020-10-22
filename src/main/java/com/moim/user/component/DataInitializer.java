@@ -6,6 +6,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.moim.user.entity.Policy;
 import com.moim.user.entity.User;
 import com.moim.user.repository.UserRepository;
 
@@ -45,6 +46,7 @@ public class DataInitializer implements ApplicationRunner {
 					.mainTalent("프로그램 개발")
 					.talent("자바,웹 개발,MSA,파이썬")
 					.interest("음악,영상")
+					.policy(Policy.builder().serviceYn(true).privateYn(true).profileYn(true).build())
 					.build();
 			userRepository.save(user);
 		}
@@ -60,6 +62,7 @@ public class DataInitializer implements ApplicationRunner {
 					.mainTalent("부동산")
 					.talent("기타")
 					.interest("주택")
+					.policy(Policy.builder().serviceYn(true).privateYn(true).profileYn(true).build())
 					.build();
 			userRepository.save(user);
 		}
@@ -75,6 +78,7 @@ public class DataInitializer implements ApplicationRunner {
 					.mainTalent("개발")
 					.talent("모바일,자바,안드로이드,아이폰")
 					.interest("테스트,휴식")
+					.policy(Policy.builder().serviceYn(true).privateYn(true).profileYn(true).build())
 					.build();
 			userRepository.save(user);
 		}		
@@ -90,6 +94,7 @@ public class DataInitializer implements ApplicationRunner {
 					.mainTalent("샘플")
 					.talent("그림,편집,컴퓨터")
 					.interest("유튜브,산")
+					.policy(Policy.builder().serviceYn(true).privateYn(true).profileYn(true).build())
 					.build();
 			userRepository.save(user);
 		}

@@ -24,6 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.moim.user.entity.Policy;
 import com.moim.user.service.user.UserDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +77,7 @@ public class UserControllerTest extends BaseControllerTest {
 				.talent("자바,웹 개발,MSA,파이썬")
 				.interest("음악,영상")
 				.avatarPath("/file/test.jpg")
+				.policy(Policy.builder().serviceYn(true).privateYn(true).profileYn(true).build())
 				.build();
 		
 		userDto = UserDto.UserReq.builder()

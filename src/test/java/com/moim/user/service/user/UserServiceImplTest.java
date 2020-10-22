@@ -19,6 +19,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.moim.user.entity.HopePlace;
+import com.moim.user.entity.Policy;
 import com.moim.user.entity.User;
 import com.moim.user.event.Sender;
 import com.moim.user.repository.HopePlaceRepository;
@@ -64,6 +65,7 @@ public class UserServiceImplTest {
 				.password("1234")
 				.userNm("Andrew")
 				.phone("010-1111-1111")
+				.policy(Policy.builder().serviceYn(true).privateYn(true).profileYn(true).build())
 				.build();
 		user = User.builder()
 				.username("cdssw@naver.com")

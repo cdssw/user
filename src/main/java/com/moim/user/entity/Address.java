@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * Place.java
+ * Address.java
  * 
  * @author cdssw
  * @since Apr 29, 2020

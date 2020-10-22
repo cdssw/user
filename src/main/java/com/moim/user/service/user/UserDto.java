@@ -2,10 +2,12 @@ package com.moim.user.service.user;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.moim.user.entity.HopePlace;
+import com.moim.user.entity.Policy;
 import com.moim.user.entity.User;
 
 import lombok.AccessLevel;
@@ -58,6 +60,9 @@ public class UserDto {
 		
 		private String avatarPath;
 		
+		@Valid
+		private Policy policy;
+		
 		@Builder
 		public SignUpReq(String username
 				, String password
@@ -67,7 +72,9 @@ public class UserDto {
 				, String mainTalent
 				, String talent
 				, String interest
-				, String avatarPath) {
+				, String avatarPath
+				, Policy policy
+				) {
 			this.username = username;
 			this.password = password;
 			this.userNm = userNm;
@@ -77,6 +84,7 @@ public class UserDto {
 			this.talent = talent;
 			this.interest = interest;
 			this.avatarPath = avatarPath;
+			this.policy = policy;
 		}
 		
 		public User toEntity() {
@@ -91,6 +99,7 @@ public class UserDto {
 					.talent(talent)
 					.interest(interest)
 					.avatarPath(avatarPath)
+					.policy(policy)
 					.build();
 		}
 	}
