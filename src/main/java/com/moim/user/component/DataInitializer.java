@@ -57,7 +57,7 @@ public class DataInitializer implements ApplicationRunner {
 					.password(passwordEncoder.encode("1234"))
 					.userType(0)
 					.userNm("Monica")
-					.userNickNm("Ggg")
+					.userNickNm("HK")
 					.phone("010-2222-2222")
 					.mainTalent("부동산")
 					.talent("기타")
