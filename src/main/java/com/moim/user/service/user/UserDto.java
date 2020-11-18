@@ -162,4 +162,18 @@ public class UserDto {
 		private String avatarPath;
 		private List<HopePlace> hopePlaceList;
 	}
+	
+	@Getter
+	@Setter
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class ApplicatorRes {
+		private String username;
+		private String userNickNm;
+		private String mainTalent;
+		private String talent;
+		private String interest;
+		private String avatarPath;
+	}
 }

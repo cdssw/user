@@ -22,4 +22,5 @@ public interface UserService {
 	boolean existsNickNm(final String userNickNm);
 	void passwordChange(final String username, final UserDto.PasswordChangeReq dto);
 	String getUserAvatar(final String username);
+	UserDto.ApplicatorRes getApplicator(final String username);
 }

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -83,5 +84,11 @@ public class UserController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public String getUserAvatar(@RequestParam("username") final String username) {
 		return userService.getUserAvatar(username);
+	}
+	
+	@GetMapping("/applicator/{username}")
+	@ResponseStatus(value = HttpStatus.OK)
+	public UserDto.ApplicatorRes getApplicator(@PathVariable final String username) {
+		return userService.getApplicator(username);
 	}
 }

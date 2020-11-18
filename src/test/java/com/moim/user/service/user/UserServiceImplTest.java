@@ -168,4 +168,16 @@ public class UserServiceImplTest {
 		// then
 		assertEquals(avatarPath, user.getAvatarPath());
 	}
+	
+	@Test
+	public void testGetApplicator() {
+		// given
+		given(userRepository.findByUsername(any())).willReturn(user);
+		
+		// when
+		UserDto.ApplicatorRes res = userServiceImpl.getApplicator("cdssw@naver.com");
+		
+		// then
+		assertEquals(res.getUsername(), user.getUsername());
+	}
 }

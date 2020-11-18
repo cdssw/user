@@ -15,6 +15,7 @@ import com.moim.user.except.ErrorCode;
 import com.moim.user.except.UserBusinessException;
 import com.moim.user.repository.HopePlaceRepository;
 import com.moim.user.repository.UserRepository;
+import com.moim.user.service.user.UserDto.ApplicatorRes;
 import com.moim.user.service.user.UserDto.PasswordChangeReq;
 import com.moim.user.service.user.UserDto.Res;
 import com.moim.user.service.user.UserDto.SignUpReq;
@@ -108,5 +109,15 @@ public class UserServiceImpl implements UserService {
 	public String getUserAvatar(String username) {
 		User user = userRepository.findByUsername(username);
 		return user.getAvatarPath();
+	}
+
+	@Override
+	public ApplicatorRes getApplicator(String username) {
+		User user = userRepository.findByUsername(username);
+		if(user == null) {
+			throw new UserBusinessException(ErrorCode.USER_NOT_FOUND);
+		}
+		
+		return modelMapper.map(user, UserDto.ApplicatorRes.class);
 	}
 }
