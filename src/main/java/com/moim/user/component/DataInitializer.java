@@ -98,6 +98,22 @@ public class DataInitializer implements ApplicationRunner {
 					.build();
 			userRepository.save(user);
 		}
+		
+		if(userRepository.findByUsername("nss@nss.com") == null) {
+			User user = User.builder()
+					.username("nss@nss.com")
+					.password(passwordEncoder.encode("1189"))
+					.userType(0)
+					.userNm("Newsongsearch")
+					.userNickNm("Nss")
+					.phone("010-0000-0000")
+					.mainTalent("Nss")
+					.talent("Elastic")
+					.interest("None")
+					.policy(Policy.builder().serviceYn(true).privateYn(true).profileYn(true).build())
+					.build();
+			userRepository.save(user);
+		}
 	}
 
 }
